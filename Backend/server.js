@@ -14,11 +14,13 @@ app.use("/uploads", express.static("uploads"));
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error(err));
+  .catch((err) => console.error("MongoDB error:", err));
 
 app.use("/api/upload", uploadRoutes);
 app.use("/api/settings", settingsRoutes);
 
 app.get("/", (req, res) => res.send("API running"));
 
-app.listen(5000, () => console.log("Server running on http://localhost:5000"));
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
